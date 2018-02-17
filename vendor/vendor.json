@@ -1,0 +1,19 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "vBZa8QdgyszoTC8dUtg1vsYBRpI=",
+			"path": "github.com/urfave/cli",
+			"revision": "a1c7408de3f632d86eee604a3bb755f1ffb68226",
+			"revisionTime": "2018-02-11T02:18:39Z"
+		},
+		{
+			"checksumSHA1": "4OooZWILCvVDJXFO2CuO9GPUj9U=",
+			"path": "gopkg.in/yaml.v2",
+			"revision": "d670f9405373e636a5a2765eea47fac0c9bc91a4",
+			"revisionTime": "2018-01-09T11:43:31Z"
+		}
+	],
+	"rootPath": "docker-compose-graph-visualizer"
+}
