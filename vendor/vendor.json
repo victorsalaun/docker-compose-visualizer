@@ -3,6 +3,42 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "jw1F9qOV5qtam35W1Yrda4PDAcA=",
+			"path": "github.com/awalterschulze/gographviz",
+			"revision": "c45f112108a6f5c61d58ff3b66bfc0d0e5bef06d",
+			"revisionTime": "2018-01-31T14:37:11Z"
+		},
+		{
+			"checksumSHA1": "N/HR0Lf1SvP04egggHIkf9cmFEo=",
+			"path": "github.com/awalterschulze/gographviz/ast",
+			"revision": "c45f112108a6f5c61d58ff3b66bfc0d0e5bef06d",
+			"revisionTime": "2018-01-31T14:37:11Z"
+		},
+		{
+			"checksumSHA1": "ZWab7/aqZmKy47djQG03Bql50AY=",
+			"path": "github.com/awalterschulze/gographviz/internal/errors",
+			"revision": "c45f112108a6f5c61d58ff3b66bfc0d0e5bef06d",
+			"revisionTime": "2018-01-31T14:37:11Z"
+		},
+		{
+			"checksumSHA1": "F5OitCSq6+y4ZwLDDyjbtumj6Dg=",
+			"path": "github.com/awalterschulze/gographviz/internal/lexer",
+			"revision": "c45f112108a6f5c61d58ff3b66bfc0d0e5bef06d",
+			"revisionTime": "2018-01-31T14:37:11Z"
+		},
+		{
+			"checksumSHA1": "YzksUS75CiokqWvmXLsmQPdQ1/U=",
+			"path": "github.com/awalterschulze/gographviz/internal/parser",
+			"revision": "c45f112108a6f5c61d58ff3b66bfc0d0e5bef06d",
+			"revisionTime": "2018-01-31T14:37:11Z"
+		},
+		{
+			"checksumSHA1": "oR//mJVv8EN4tJbtWwLYlJxr5C4=",
+			"path": "github.com/awalterschulze/gographviz/internal/token",
+			"revision": "c45f112108a6f5c61d58ff3b66bfc0d0e5bef06d",
+			"revisionTime": "2018-01-31T14:37:11Z"
+		},
+		{
 			"checksumSHA1": "vBZa8QdgyszoTC8dUtg1vsYBRpI=",
 			"path": "github.com/urfave/cli",
 			"revision": "a1c7408de3f632d86eee604a3bb755f1ffb68226",

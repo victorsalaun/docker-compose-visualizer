@@ -11,5 +11,14 @@ services:
     - redis
   redis:
     image: redis
+  back:
+    build: .
+    ports:
+    - "5000:5000"
+    volumes:
+    - .:/code
+    - logvolume01:/var/log
+    links:
+    - redis
 volumes:
   logvolume01: {}

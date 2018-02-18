@@ -2,43 +2,47 @@ package main
 
 import (
 	"io/ioutil"
-	"log"
-
+	"github.com/awalterschulze/gographviz"
 	"github.com/urfave/cli"
 	"gopkg.in/yaml.v2"
+	"fmt"
+	"strings"
 )
 
-type DockerComposeV3 struct {
-	Version  string
-	Services map[string]Service
-	Volumes  map[string]Volume
-}
-
-type Service struct {
-	Build   string
-	Image   string
-	Restart string
-	Ports   []string
-	Volumes []string
-	Links   []string
-}
-
-type Volume struct {
-}
-
 func visualize(c *cli.Context) {
-	dat, err := ioutil.ReadFile("docker-compose.yml")
+	var (
+		err     error
+		graph   *gographviz.Graph
+		project string
+	)
+
+	data, err := ioutil.ReadFile(c.String("input-file"))
 	check(err)
 
 	dc := DockerComposeV3{}
-	err = yaml.Unmarshal(dat, &dc)
-	log.Printf("Version %s", dc.Version)
-	log.Printf("Volumes %s", dc.Services["web"].Volumes)
-	log.Printf("Volumes %s", dc.Volumes)
+	err = yaml.Unmarshal(data, &dc)
+
+	// Create directed graph
+	graph = gographviz.NewGraph()
+	graph.SetName(project)
+	graph.SetDir(true)
+
+	for name := range dc.Services {
+		graph.AddNode(project, nodify(name), map[string]string{
+			"label": fmt.Sprintf(name),
+			"shape": "component",
+		})
+	}
+
+	fmt.Print(graph)
 }
 
 func check(e error) {
 	if e != nil {
 		panic(e)
 	}
+}
+
+func nodify(s string) string {
+	return strings.Replace(s, "-", "_", -1)
 }
