@@ -24,7 +24,12 @@ func main() {
 				cli.StringFlag{
 					Name:  "input-file, i",
 					Usage: "Path to a docker-compose input file [default: \"./docker-compose.yml\"]",
-					Value: "docker-compose.yml",
+					Value: "./docker-compose.yml",
+				},
+				cli.StringFlag{
+					Name:  "output-file, o",
+					Usage: "Path to a dot output file [default: \"./docker-compose.dot\"]",
+					Value: "./docker-compose.dot",
 				},
 			},
 		},

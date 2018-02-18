@@ -1,0 +1,6 @@
+digraph  {
+	back [ label=back, shape=component ];
+	redis [ label=redis, shape=component ];
+	web [ label=web, shape=component ];
+
+}

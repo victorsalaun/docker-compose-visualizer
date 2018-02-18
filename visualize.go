@@ -7,6 +7,7 @@ import (
 	"gopkg.in/yaml.v2"
 	"fmt"
 	"strings"
+	"os"
 )
 
 func visualize(c *cli.Context) {
@@ -35,6 +36,13 @@ func visualize(c *cli.Context) {
 	}
 
 	fmt.Print(graph)
+
+	file, err := os.Create(c.String("output-file"))
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+	file.Write([]byte(graph.String()))
 }
 
 func check(e error) {

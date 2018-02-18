@@ -1,5 +1,19 @@
 # Docker-compose Visualizer
 
+## Install
+
+    go get github.com/victorsalaun/docker-compose-visualizer
+
+## Usage
+
+    Usage:
+      visualize [options]
+
+    Options:
+      --input-file, --i                  Path to a docker-compose input file [default: "./docker-compose.yml"]
+      --output-file, --o                 Path to a dot output file [default: "./docker-compose.dot"]
+
+
 ## Dev
 
 Install vendor package:
