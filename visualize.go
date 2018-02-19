@@ -33,6 +33,18 @@ func visualize(c *cli.Context) {
 			"shape": "component",
 		})
 
+		if serviceValue.Build != "" {
+			graph.AddNode(project, nodify(serviceValue.Build), map[string]string{
+				"shape": "folder",
+			})
+
+			edge := gographviz.Edge{}
+			edge.Dir = true
+			edge.Src = nodify(serviceValue.Build)
+			edge.Dst = nodify(serviceKey)
+			graph.Edges.Add(&edge)
+		}
+
 		for portIndex := range serviceValue.Ports {
 			graph.AddNode(project, nodify(serviceValue.Ports[portIndex]), map[string]string{
 				"shape": "circle",
@@ -40,8 +52,8 @@ func visualize(c *cli.Context) {
 
 			edge := gographviz.Edge{}
 			edge.Dir = true
-			edge.Src = serviceValue.Ports[portIndex]
-			edge.Dst = serviceKey
+			edge.Src = nodify(serviceValue.Ports[portIndex])
+			edge.Dst = nodify(serviceKey)
 			graph.Edges.Add(&edge)
 		}
 
@@ -64,5 +76,5 @@ func check(e error) {
 }
 
 func nodify(s string) string {
-	return strings.Replace(s, "-", "_", -1)
+	return "\"" + strings.Replace(s, "-", "_", -1) + "\""
 }
