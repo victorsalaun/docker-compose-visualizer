@@ -1,6 +1,9 @@
-digraph  {
-	back [ label=back, shape=component ];
-	redis [ label=redis, shape=component ];
-	web [ label=web, shape=component ];
+digraph docker_compose {
+	5000:5000->web;
+	5000:5000->back;
+	5000:5000 [ shape=circle ];
+	back [ shape=component ];
+	redis [ shape=component ];
+	web [ shape=component ];
 
 }

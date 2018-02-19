@@ -1,13 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"github.com/awalterschulze/gographviz"
 	"github.com/urfave/cli"
 	"gopkg.in/yaml.v2"
-	"fmt"
-	"strings"
 	"os"
+	"strings"
 )
 
 func visualize(c *cli.Context) {
@@ -25,14 +25,26 @@ func visualize(c *cli.Context) {
 
 	// Create directed graph
 	graph = gographviz.NewGraph()
-	graph.SetName(project)
+	graph.SetName("docker_compose")
 	graph.SetDir(true)
 
-	for name := range dc.Services {
-		graph.AddNode(project, nodify(name), map[string]string{
-			"label": fmt.Sprintf(name),
+	for serviceKey, serviceValue := range dc.Services {
+		graph.AddNode(project, nodify(serviceKey), map[string]string{
 			"shape": "component",
 		})
+
+		for portIndex := range serviceValue.Ports {
+			graph.AddNode(project, nodify(serviceValue.Ports[portIndex]), map[string]string{
+				"shape": "circle",
+			})
+
+			edge := gographviz.Edge{}
+			edge.Dir = true
+			edge.Src = serviceValue.Ports[portIndex]
+			edge.Dst = serviceKey
+			graph.Edges.Add(&edge)
+		}
+
 	}
 
 	fmt.Print(graph)

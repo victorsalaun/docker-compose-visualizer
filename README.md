@@ -14,6 +14,10 @@
       --output-file, --o                 Path to a dot output file [default: "./docker-compose.dot"]
 
 
+Execute GraphViz 
+
+    execute_dot.sh svg .\examples\docker-compose
+
 ## Dev
 
 Install vendor package:
