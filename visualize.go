@@ -28,6 +28,12 @@ func visualize(c *cli.Context) {
 	graph.SetName("docker_compose")
 	graph.SetDir(true)
 
+	for volumeKey := range dc.Volumes {
+		graph.AddNode(project, nodify(volumeKey), map[string]string{
+			"shape": "folder",
+		})
+	}
+
 	for serviceKey, serviceValue := range dc.Services {
 		graph.AddNode(project, nodify(serviceKey), map[string]string{
 			"shape": "component",
@@ -53,6 +59,18 @@ func visualize(c *cli.Context) {
 			edge := gographviz.Edge{}
 			edge.Dir = true
 			edge.Src = nodify(serviceValue.Ports[portIndex])
+			edge.Dst = nodify(serviceKey)
+			graph.Edges.Add(&edge)
+		}
+
+		for volumeIndex := range serviceValue.Volumes {
+			graph.AddNode(project, nodify(serviceValue.Volumes[volumeIndex]), map[string]string{
+				"shape": "folder",
+			})
+
+			edge := gographviz.Edge{}
+			edge.Dir = true
+			edge.Src = nodify(serviceValue.Volumes[volumeIndex])
 			edge.Dst = nodify(serviceKey)
 			graph.Edges.Add(&edge)
 		}
