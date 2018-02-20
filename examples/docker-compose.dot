@@ -3,10 +3,12 @@ digraph docker_compose {
 	"5000:5000"->"web";
 	".:/code"->"web";
 	"logvolume01:/var/log"->"web";
+	"web"->"redis";
 	"."->"back";
 	"5000:5000"->"back";
 	".:/code"->"back";
 	"logvolume01:/var/log"->"back";
+	"back"->"redis";
 	"." [ shape=folder ];
 	".:/code" [ shape=folder ];
 	"5000:5000" [ shape=circle ];

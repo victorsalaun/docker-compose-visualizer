@@ -75,6 +75,14 @@ func visualize(c *cli.Context) {
 			graph.Edges.Add(&edge)
 		}
 
+		for linkIndex := range serviceValue.Links {
+			edge := gographviz.Edge{}
+			edge.Dir = true
+			edge.Src = nodify(serviceKey)
+			edge.Dst = nodify(serviceValue.Links[linkIndex])
+			graph.Edges.Add(&edge)
+		}
+
 	}
 
 	fmt.Print(graph)
