@@ -28,61 +28,73 @@ func visualize(c *cli.Context) {
 	graph.SetName("docker_compose")
 	graph.SetDir(true)
 
-	for volumeKey := range dc.Volumes {
-		graph.AddNode(project, nodify(volumeKey), map[string]string{
-			"shape": "folder",
-		})
+	if !c.Bool("no-volumes") {
+		for volumeKey := range dc.Volumes {
+			graph.AddNode(project, nodify(volumeKey), map[string]string{
+				"shape": "folder",
+			})
+		}
 	}
 
-	for serviceKey, serviceValue := range dc.Services {
-		graph.AddNode(project, nodify(serviceKey), map[string]string{
-			"shape": "component",
-		})
-
-		if serviceValue.Build != "" {
-			graph.AddNode(project, nodify(serviceValue.Build), map[string]string{
-				"shape": "folder",
+	if !c.Bool("no-services") {
+		for serviceKey, serviceValue := range dc.Services {
+			graph.AddNode(project, nodify(serviceKey), map[string]string{
+				"shape": "component",
 			})
 
-			edge := gographviz.Edge{}
-			edge.Dir = true
-			edge.Src = nodify(serviceValue.Build)
-			edge.Dst = nodify(serviceKey)
-			graph.Edges.Add(&edge)
+			if !c.Bool("no-builds") {
+				if serviceValue.Build != "" {
+					graph.AddNode(project, nodify(serviceValue.Build), map[string]string{
+						"shape": "folder",
+					})
+
+					edge := gographviz.Edge{}
+					edge.Dir = true
+					edge.Src = nodify(serviceValue.Build)
+					edge.Dst = nodify(serviceKey)
+					graph.Edges.Add(&edge)
+				}
+			}
+
+			if !c.Bool("no-ports") {
+				for portIndex := range serviceValue.Ports {
+					graph.AddNode(project, nodify(serviceValue.Ports[portIndex]), map[string]string{
+						"shape": "circle",
+					})
+
+					edge := gographviz.Edge{}
+					edge.Dir = true
+					edge.Src = nodify(serviceValue.Ports[portIndex])
+					edge.Dst = nodify(serviceKey)
+					graph.Edges.Add(&edge)
+				}
+			}
+
+			if !c.Bool("no-volumes") {
+				for volumeIndex := range serviceValue.Volumes {
+					graph.AddNode(project, nodify(serviceValue.Volumes[volumeIndex]), map[string]string{
+						"shape": "folder",
+					})
+
+					edge := gographviz.Edge{}
+					edge.Dir = true
+					edge.Src = nodify(serviceValue.Volumes[volumeIndex])
+					edge.Dst = nodify(serviceKey)
+					graph.Edges.Add(&edge)
+				}
+			}
+
+			if !c.Bool("no-links") {
+				for linkIndex := range serviceValue.Links {
+					edge := gographviz.Edge{}
+					edge.Dir = true
+					edge.Src = nodify(serviceKey)
+					edge.Dst = nodify(serviceValue.Links[linkIndex])
+					graph.Edges.Add(&edge)
+				}
+			}
+
 		}
-
-		for portIndex := range serviceValue.Ports {
-			graph.AddNode(project, nodify(serviceValue.Ports[portIndex]), map[string]string{
-				"shape": "circle",
-			})
-
-			edge := gographviz.Edge{}
-			edge.Dir = true
-			edge.Src = nodify(serviceValue.Ports[portIndex])
-			edge.Dst = nodify(serviceKey)
-			graph.Edges.Add(&edge)
-		}
-
-		for volumeIndex := range serviceValue.Volumes {
-			graph.AddNode(project, nodify(serviceValue.Volumes[volumeIndex]), map[string]string{
-				"shape": "folder",
-			})
-
-			edge := gographviz.Edge{}
-			edge.Dir = true
-			edge.Src = nodify(serviceValue.Volumes[volumeIndex])
-			edge.Dst = nodify(serviceKey)
-			graph.Edges.Add(&edge)
-		}
-
-		for linkIndex := range serviceValue.Links {
-			edge := gographviz.Edge{}
-			edge.Dir = true
-			edge.Src = nodify(serviceKey)
-			edge.Dst = nodify(serviceValue.Links[linkIndex])
-			graph.Edges.Add(&edge)
-		}
-
 	}
 
 	fmt.Print(graph)

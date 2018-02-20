@@ -31,6 +31,27 @@ func main() {
 					Usage: "Path to a dot output file [default: \"./docker-compose.dot\"]",
 					Value: "./docker-compose.dot",
 				},
+				// disabling flags
+				cli.BoolFlag{
+					Name:  "no-builds",
+					Usage: "Disable displaying builds",
+				},
+				cli.BoolFlag{
+					Name:  "no-links",
+					Usage: "Disable displaying links",
+				},
+				cli.BoolFlag{
+					Name:  "no-ports",
+					Usage: "Disable displaying ports",
+				},
+				cli.BoolFlag{
+					Name:  "no-services",
+					Usage: "Disable displaying services",
+				},
+				cli.BoolFlag{
+					Name:  "no-volumes",
+					Usage: "Disable displaying volumes",
+				},
 			},
 		},
 	}
