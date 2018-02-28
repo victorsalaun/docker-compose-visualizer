@@ -7,9 +7,9 @@ RUN mkdir -p /go/src/github.com/victorsalaun/docker-compose-visualizer
 COPY . /go/src/github.com/victorsalaun/docker-compose-visualizer
 WORKDIR /go/src/github.com/victorsalaun/docker-compose-visualizer
 
-RUN go build -o main -o export -o visualize
+RUN go build -o main -o render
 
 VOLUME /workdir
 WORKDIR /workdir
 
-CMD ["/go/src/github.com/victorsalaun/docker-compose-visualizer/visualize", "visualize"]
+CMD ["/go/src/github.com/victorsalaun/docker-compose-visualizer/render", "render"]

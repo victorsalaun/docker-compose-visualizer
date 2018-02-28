@@ -7,10 +7,13 @@ import (
 	"github.com/urfave/cli"
 	"gopkg.in/yaml.v2"
 	"os"
+	"os/exec"
 	"strings"
+	"log"
+	"bytes"
 )
 
-func visualize(c *cli.Context) {
+func convertDockerComposeToDots(c *cli.Context) {
 	var (
 		err     error
 		graph   *gographviz.Graph
@@ -99,12 +102,34 @@ func visualize(c *cli.Context) {
 
 	fmt.Print(graph)
 
-	file, err := os.Create(c.String("output-file"))
+	file, err := os.Create(c.String("output-dot-file"))
 	if err != nil {
 		panic(err)
 	}
 	defer file.Close()
 	file.Write([]byte(graph.String()))
+
+	draw_graphviz(c)
+}
+
+func draw_graphviz(c *cli.Context) {
+	filesPart := strings.Split(c.String("output-graph-file"), ".")
+	cmd := exec.Command("/usr/bin/dot", "-T"+"", filesPart[len(filesPart)-1], c.String("output-dot-file"), "-o", c.String("output-graph-file"))
+	cmd.Stdin = strings.NewReader("some input")
+
+	var out bytes.Buffer
+
+	cmd.Stdout = &out
+
+	err := cmd.Run()
+
+	if err != nil {
+
+		log.Fatal(err)
+
+	}
+
+	fmt.Printf("in all caps: %q\n", out.String())
 }
 
 func check(e error) {

@@ -12,8 +12,8 @@ func main() {
 
 	app.Commands = []cli.Command{
 		{
-			Name:   "visualize",
-			Action: visualize,
+			Name:   "render",
+			Action: convertDockerComposeToDots,
 			Usage:  "Visualize docker-compose file",
 			Flags: []cli.Flag{
 				cli.StringFlag{
@@ -22,9 +22,14 @@ func main() {
 					Value: "./docker-compose.yml",
 				},
 				cli.StringFlag{
-					Name:  "output-file, o",
+					Name:  "output-dot-file, d",
 					Usage: "Path to a dot output file [default: \"./docker-compose.dot\"]",
 					Value: "./docker-compose.dot",
+				},
+				cli.StringFlag{
+					Name:  "output-graph-file, g",
+					Usage: "Path to a graph output file [default: \"./docker-compose.svg\"]",
+					Value: "./docker-compose.svg",
 				},
 				// disabling flags
 				cli.BoolFlag{
