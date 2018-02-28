@@ -51,10 +51,14 @@ func convertDockerComposeToDots(c *cli.Context) {
 						"shape": "folder",
 					})
 
-					edge := gographviz.Edge{}
-					edge.Dir = true
-					edge.Src = nodify(serviceValue.Build)
-					edge.Dst = nodify(serviceKey)
+					edge := gographviz.Edge{
+						Dir: true,
+						Src: nodify(serviceValue.Build),
+						Dst: nodify(serviceKey),
+						Attrs: map[gographviz.Attr]string{
+							gographviz.Attr("label"): "build",
+						},
+					}
 					graph.Edges.Add(&edge)
 				}
 			}
@@ -65,10 +69,14 @@ func convertDockerComposeToDots(c *cli.Context) {
 						"shape": "circle",
 					})
 
-					edge := gographviz.Edge{}
-					edge.Dir = true
-					edge.Src = nodify(serviceValue.Ports[portIndex])
-					edge.Dst = nodify(serviceKey)
+					edge := gographviz.Edge{
+						Dir: true,
+						Src: nodify(serviceValue.Ports[portIndex]),
+						Dst: nodify(serviceKey),
+						Attrs: map[gographviz.Attr]string{
+							gographviz.Attr("label"): "port",
+						},
+					}
 					graph.Edges.Add(&edge)
 				}
 			}
@@ -79,20 +87,28 @@ func convertDockerComposeToDots(c *cli.Context) {
 						"shape": "folder",
 					})
 
-					edge := gographviz.Edge{}
-					edge.Dir = true
-					edge.Src = nodify(serviceValue.Volumes[volumeIndex])
-					edge.Dst = nodify(serviceKey)
+					edge := gographviz.Edge{
+						Dir: true,
+						Src: nodify(serviceValue.Volumes[volumeIndex]),
+						Dst: nodify(serviceKey),
+						Attrs: map[gographviz.Attr]string{
+							gographviz.Attr("label"): "volume",
+						},
+					}
 					graph.Edges.Add(&edge)
 				}
 			}
 
 			if !c.Bool("no-links") {
 				for linkIndex := range serviceValue.Links {
-					edge := gographviz.Edge{}
-					edge.Dir = true
-					edge.Src = nodify(serviceKey)
-					edge.Dst = nodify(serviceValue.Links[linkIndex])
+					edge := gographviz.Edge{
+						Dir: true,
+						Src: nodify(serviceKey),
+						Dst: nodify(serviceValue.Links[linkIndex]),
+						Attrs: map[gographviz.Attr]string{
+							gographviz.Attr("label"): "link",
+						},
+					}
 					graph.Edges.Add(&edge)
 				}
 			}
