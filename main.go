@@ -86,3 +86,24 @@ type Volume struct {
 
 type Network struct {
 }
+
+type GraphAttributes struct {
+	Build   GraphAttrbute `yaml:"build"`
+	Link    GraphAttrbute `yaml:"link"`
+	Port    GraphAttrbute `yaml:"port"`
+	Service GraphAttrbute `yaml:"service"`
+	Volume  GraphAttrbute `yaml:"volume"`
+}
+
+type GraphAttrbute struct {
+	GraphEdge GraphEdge `yaml:"edge"`
+	GraphNode GraphNode `yaml:"node"`
+}
+
+type GraphEdge struct {
+	Attrs map[string]string `yaml:"attrs"`
+}
+
+type GraphNode struct {
+	Attrs map[string]string `yaml:"attrs"`
+}

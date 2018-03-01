@@ -20,7 +20,11 @@ func convertDockerComposeToDots(c *cli.Context) {
 		project string
 	)
 
-	data, err := ioutil.ReadFile(c.String("input-file"))
+	graphAttributes := GraphAttributes{}
+	data, err := ioutil.ReadFile("graph_attributes.yaml")
+	err = yaml.Unmarshal(data, &graphAttributes)
+
+	data, err = ioutil.ReadFile(c.String("input-file"))
 	check(err)
 
 	dc := DockerComposeV3{}

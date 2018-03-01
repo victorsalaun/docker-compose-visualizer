@@ -1,0 +1,32 @@
+build:
+  edge:
+    attrs:
+    - label: build
+  node:
+    attrs:
+    - shape: folder
+
+link:
+  node:
+    attrs:
+
+port:
+  edge:
+    attrs:
+    - label: port
+  node:
+    attrs:
+    - shape: circle
+
+service:
+  node:
+    attrs:
+    - shape: component
+
+volume:
+  edge:
+    attrs:
+    - label: volume
+  node:
+    attrs:
+    - shape: folder
