@@ -1,5 +1,11 @@
 # Docker-compose Visualizer
 
+[![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://raw.githubusercontent.com/victorsalaun/cli/master/LICENSE)
+[![Travis branch](https://img.shields.io/travis/victorsalaun/docker-compose-visualizer/master.svg)](https://travis-ci.org/victorsalaun/docker-compose-visualizer)
+[![Coverage Status](https://coveralls.io/repos/github/victorsalaun/docker-compose-visualizer/badge.svg?branch=master)](https://coveralls.io/github/victorsalaun/docker-compose-visualizer?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/victorsalaun/docker-compose-visualizer)](https://goreportcard.com/report/github.com/victorsalaun/docker-compose-visualizer)
+
+
 ## Run
 
 Run docker image with default values giving workdir
