@@ -59,6 +59,7 @@ func main() {
 	app.Run(os.Args)
 }
 
+// https://docs.docker.com/compose/compose-file/#compose-file-structure-and-examples
 type DockerComposeV3 struct {
 	Version  string             `yaml:"version"`
 	Services map[string]Service `yaml:"services"`
@@ -66,6 +67,7 @@ type DockerComposeV3 struct {
 	Networks map[string]Network `yaml:"networks"`
 }
 
+// https://docs.docker.com/compose/compose-file/#service-configuration-reference
 type Service struct {
 	Build         string   `yaml:"build"`
 	CapAdd        []string `yaml:"cap_add"`
@@ -81,8 +83,10 @@ type Service struct {
 	VolumesFrom   []string `yaml:"volumes_from"`
 }
 
+// https://docs.docker.com/compose/compose-file/#volumes
 type Volume struct {
 }
 
+// https://docs.docker.com/compose/compose-file/#network-configuration-reference
 type Network struct {
 }

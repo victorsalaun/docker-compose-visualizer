@@ -125,10 +125,10 @@ func convertDockerComposeToDots(c *cli.Context) {
 	defer file.Close()
 	file.Write([]byte(graph.String()))
 
-	draw_graphviz(c)
+	drawGraphviz(c)
 }
 
-func draw_graphviz(c *cli.Context) {
+func drawGraphviz(c *cli.Context) {
 	filesPart := strings.Split(c.String("output-graph-file"), ".")
 	cmd := exec.Command("/usr/bin/dot", "-T"+"", filesPart[len(filesPart)-1], c.String("output-dot-file"), "-o", c.String("output-graph-file"))
 	cmd.Stdin = strings.NewReader("some input")
