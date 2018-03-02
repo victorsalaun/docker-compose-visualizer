@@ -6,6 +6,9 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/victorsalaun/docker-compose-visualizer)](https://goreportcard.com/report/github.com/victorsalaun/docker-compose-visualizer)
 
 
+![docker gopher banner](assets/Docker-Gopher-Banner.png)
+
+
 ## Run
 
 Run docker image with default values giving workdir
